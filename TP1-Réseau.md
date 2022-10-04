@@ -553,6 +553,19 @@ Un peu austère aux premiers abords, une manipulation très basique permet d'avo
 🌞 Utilisez le pour observer les trames qui circulent entre vos deux carte Ethernet. Mettez en évidence :
 
 - un `ping` entre vous et votre passerelle
+
+Adresse IP Wifi chez moi : 192.168.1.68
+
+Passerelle : 192.168.1.254
+```
+C:\Users\hugoa> ping 192.168.1.254
+
+Envoi d’une requête 'Ping'  192.168.1.254 avec 32 octets de données :
+Réponse de 192.168.1.254 : octets=32 temps=1 ms TTL=64
+Réponse de 192.168.1.254 : octets=32 temps=3 ms TTL=64
+```
+![Capt3](./pics/capt3.png)
+
 - un `netcat` entre vous et votre mate, branché en RJ45
 
 ```
@@ -601,6 +614,8 @@ TCP et UDP ce sont les deux protocoles qui utilisent des ports. Si on veut accé
 
 - déterminez à quelle IP et quel port votre PC se connecte quand vous regardez une vidéo Youtube
   - il sera sûrement plus simple de repérer le trafic Youtube en fermant tous les autres onglets et toutes les autres applications utilisant du réseau
+
+![Capt4](pics/capt4.png)
 
 # Bilan
 
