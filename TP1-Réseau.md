@@ -562,6 +562,19 @@ gyro zepelli
 ![Capt1](./pics/capt1.png)
 
 - une requête DNS. Identifiez dans la capture le serveur DNS à qui vous posez la question.
+
+```
+C:\Users\hugoa\netcat-1.11> nslookup toto.com
+Serveur :   dns.google
+Address:  8.8.8.8
+
+Réponse ne faisant pas autorité :
+Nom :    toto.com
+Addresses:  13.230.180.32
+          54.248.149.59
+```
+![Capt2](./pics/capt2.png)
+
 - prenez moi des screens des trames en question
 - on va prendre l'habitude d'utiliser Wireshark souvent dans les cours, pour visualiser ce qu'il se passe
 
