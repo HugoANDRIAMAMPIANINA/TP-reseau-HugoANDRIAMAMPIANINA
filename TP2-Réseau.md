@@ -252,8 +252,8 @@ Pour trame BROADCAST :
 
 Pour trame REPLY :
 
-  adresse source = 9c:2d:cd:16:48:33
-  adresse destination = 9c:2d:cd:5b:40:5f
+    adresse source = 9c:2d:cd:16:48:33
+    adresse destination = 9c:2d:cd:5b:40:5f
 
   - déterminez à quoi correspond chacune de ces adresses
 
