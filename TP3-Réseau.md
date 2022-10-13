@@ -80,9 +80,9 @@ Adresse MAC de `marcel` : 08:00:27:f9:97:33
 [root@localhost ~]$ ip neigh flush all
 ```
 
-🦈 **Capture réseau `tp2_arp.pcapng`** qui contient un ARP request et un ARP reply
+🦈 **Capture réseau `tp3_arp.pcapng`** qui contient un ARP request et un ARP reply
 
-**[tp3_arp.pcapng](wireshark/tp3_arp.pcap)**
+**[TP3_ARP](wireshark/tp3_arp.pcap)**
 
 > **Si vous ne savez pas comment récupérer votre fichier `.pcapng`** sur votre hôte afin de l'ouvrir dans Wireshark, et me le livrer en rendu, demandez-moi.
 
@@ -171,7 +171,7 @@ PING 10.3.1.11 (10.3.1.11) 56(84) bytes of data.
 
 > Vous pourriez, par curiosité, lancer la capture sur `john` aussi, pour voir l'échange qu'il a effectué de son côté.
 
-🦈 **Capture réseau `tp2_routage_marcel.pcapng`**
+🦈 **Capture réseau `tp3_routage_marcel.pcapng`**
 
 **[TP3_ROUTAGE_MARCEL](wireshark/tp3_routage_marcel.pcap)**
 
@@ -239,9 +239,9 @@ PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 | 1     | ping       | `john` `10.3.1.11` | `john` `08:00:27:63:f7:af` | `8.8.8.8`          | `08:00:27:27:f6:5a`        |
 | 2     | pong       | `8.8.8.8`          | `08:00:27:27:f6:5a`        | `john` `10.3.1.11` | `john` `08:00:27:63:f7:af` |
 
-🦈 **Capture réseau `tp2_routage_internet.pcapng`**
+🦈 **Capture réseau `tp3_routage_internet.pcapng`**
 
-**[TCP3_ROUTAGE](wireshark/tp3_routage_internet.pcapng)**
+**[TP3_ROUTAGE](wireshark/tp3_routage_internet.pcapng)**
 
 ## III. DHCP
 
@@ -255,12 +255,12 @@ On reprend la config précédente, et on ajoutera à la fin de cette partie une 
 | `marcel` | no                         | `10.3.2.12`   |
 
 ```schema
-   john               router              marcel
+   bob                router              marcel
   ┌─────┐             ┌─────┐             ┌─────┐
   │     │    ┌───┐    │     │    ┌───┐    │     │
   │     ├────┤ho1├────┤     ├────┤ho2├────┤     │
   └─────┘    └─┬─┘    └─────┘    └───┘    └─────┘
-   john        │
+   dhcp        │
   ┌─────┐      │
   │     │      │
   │     ├──────┘
@@ -272,8 +272,64 @@ On reprend la config précédente, et on ajoutera à la fin de cette partie une 
 🌞**Sur la machine `john`, vous installerez et configurerez un serveur DHCP** (go Google "rocky linux dhcp server").
 
 - installation du serveur sur `john`
+
+**ATTENTION** : Beaucoup de lignes inutiles mais c'est censé prouver que le serveur DHCP marche 
+```
+[root@localhost ~]$ journalctl -xeu dhcpd.service
+Oct 11 18:13:13 localhost.localdomain systemd[1]: Starting DHCPv4 Server Daemon...
+░░ Subject: A start job for unit dhcpd.service has begun execution
+░░ Defined-By: systemd
+░░ Support: https://access.redhat.com/support
+░░
+░░ A start job for unit dhcpd.service has begun execution.
+░░
+░░ The job identifier is 1670.
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Internet Systems Consortium DHCP Server 4.4.2b1
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Copyright 2004-2019 Internet Systems Consortium.
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: All rights reserved.
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: For info, please visit https://www.isc.org/software/dhcp/
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: ldap_gssapi_principal is not set,GSSAPI Authentication for LDAP will>
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Not searching LDAP since ldap-server, ldap-port and ldap-base-dn wer>
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Not searching LDAP since ldap-server, ldap-port and ldap-base-dn wer>
+Oct 11 18:13:13 localhost.localdomain systemd[1]: Starting DHCPv4 Server Daemon...
+░░ Subject: A start job for unit dhcpd.service has begun execution
+░░ Defined-By: systemd
+░░ Support: https://access.redhat.com/support
+░░
+░░ A start job for unit dhcpd.service has begun execution.
+░░
+░░ The job identifier is 1670.
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Internet Systems Consortium DHCP Server 4.4.2b1
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Copyright 2004-2019 Internet Systems Consortium.
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: All rights reserved.
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: For info, please visit https://www.isc.org/software/dhcp/
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: ldap_gssapi_principal is not set,GSSAPI Authentication for LDAP will>
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Not searching LDAP since ldap-server, ldap-port and ldap-base-dn wer>
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Config file: /etc/dhcp/dhcpd.conf
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Database file: /var/lib/dhcpd/dhcpd.leases
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: PID file: /var/run/dhcpd.pid
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Source compiled to use binary-leases
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Wrote 0 leases to leases file.
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Listening on LPF/enp0s8/08:00:27:63:f7:af/10.3.1.0/24
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Sending on   LPF/enp0s8/08:00:27:63:f7:af/10.3.1.0/24
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Sending on   Socket/fallback/fallback-net
+Oct 11 18:13:13 localhost.localdomain dhcpd[1429]: Server starting service.
+Oct 11 18:13:13 localhost.localdomain systemd[1]: Started DHCPv4 Server Daemon.
+░░ Subject: A start job for unit dhcpd.service has finished successfully
+░░ Defined-By: systemd
+░░ Support: https://access.redhat.com/support
+░░
+░░ A start job for unit dhcpd.service has finished successfully.
+```
 - créer une machine `bob`
 - faites lui récupérer une IP en DHCP à l'aide de votre serveur
+
+```
+[root@localhost ~]$ ip a
+2: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:6a:05:b5 brd ff:ff:ff:ff:ff:ff
+    inet 10.3.1.2/24 brd 10.3.1.255 scope global dynamic noprefixroute enp0s8
+```
 
 > Il est possible d'utiliser la commande `dhclient` pour forcer à la main, depuis la ligne de commande, la demande d'une IP en DHCP, ou renouveler complètement l'échange DHCP (voir `dhclient -h` puis call me et/ou Google si besoin d'aide).
 
@@ -282,16 +338,71 @@ On reprend la config précédente, et on ajoutera à la fin de cette partie une 
 - ajoutez de la configuration à votre DHCP pour qu'il donne aux clients, en plus de leur IP :
   - une route par défaut
   - un serveur DNS à utiliser
+
+Ajout des lignes dans le fichier dhcpd.conf :
+```
+option routers 10.3.1.254;
+option subnet-mask 255.255.255.0;
+option domain-name-servers 8.8.8.8;
+```
 - récupérez de nouveau une IP en DHCP sur `bob` pour tester :
-  - `marcel` doit avoir une IP
+
+Pour libérer l'adresse IP actuelle
+```
+[root@localhost ~]$ dhclient -r :
+```
+Pour obtenir une nouvelle adresse IP :
+```
+[root@localhost ~]$ dhclient
+```
+  - `bob` doit avoir une IP
     - vérifier avec une commande qu'il a récupéré son IP
+
+    ```
+    [root@localhost ~]$ ip a
+    2: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+        link/ether 08:00:27:6a:05:b5 brd ff:ff:ff:ff:ff:ff
+        inet 10.3.1.2/24 brd 10.3.1.255 scope global dynamic noprefixroute enp0s8
+          valid_lft 529sec preferred_lft 529sec
+    ```
     - vérifier qu'il peut `ping` sa passerelle
+
+    ```
+    [root@localhost ~]$ ping 10.3.1.254
+    PING 10.3.1.254 (10.3.1.254) 56(84) bytes of data.
+    64 bytes from 10.3.1.254: icmp_seq=1 ttl=64 time=0.553 ms
+    ```
   - il doit avoir une route par défaut
     - vérifier la présence de la route avec une commande
+
+    ```
+    [root@localhost ~]$ ip r s
+    default via 10.3.1.254 dev enp0s8 proto dhcp src 10.3.1.2 metric 100
+    10.3.1.0/24 dev enp0s8 proto kernel scope link src 10.3.1.2 metric 100
+    ```
     - vérifier que la route fonctionne avec un `ping` vers une IP
+
+    ```
+    [root@localhost ~]$ ping 10.3.2.12
+    PING 10.3.2.12 (10.3.2.12) 56(84) bytes of data.
+    64 bytes from 10.3.2.12: icmp_seq=1 ttl=63 time=1.24 ms
+    ```
   - il doit connaître l'adresse d'un serveur DNS pour avoir de la résolution de noms
     - vérifier avec la commande `dig` que ça fonctionne
+
+    ```
+    [root@localhost ~]$ dig google.com
+    ;; ANSWER SECTION:
+    google.com.             300     IN      A       216.58.209.238
+    ```
     - vérifier un `ping` vers un nom de domaine
+
+    ```
+    [root@localhost ~]$ ping 216.58.209.238
+    PING 216.58.209.238 (216.58.209.238) 56(84) bytes of data.
+    64 bytes from 216.58.209.238: icmp_seq=1 ttl=247 time=25.4 ms
+    64 bytes from 216.58.209.238: icmp_seq=2 ttl=247 time=23.6 ms
+    ```
 
 ### 2. Analyse de trames
 
@@ -301,4 +412,6 @@ On reprend la config précédente, et on ajoutera à la fin de cette partie une 
 - demander une nouvelle IP afin de générer un échange DHCP
 - exportez le fichier `.pcapng`
 
-🦈 **Capture réseau `tp2_dhcp.pcapng`**
+🦈 **Capture réseau `tp3_dhcp.pcapng`**
+
+**[TP3_DHCP](wireshark/tp3_dhcp.pcap)**
