@@ -438,7 +438,7 @@ LISTEN  0       10           10.4.1.201:53            0.0.0.0:*      users:(("na
 - ouvrez ce port dans le firewall de la machine `dns-server.tp4.b1` (voir le mémo réseau Rocky)
 
 ```
-[hugoa@dns-server ~]$ sudo firewall-cmd --add-port=53/tcp --permanent
+[hugoa@dns-server ~]$ sudo firewall-cmd --add-port=53/ucp --permanent
 success
 [hugoa@dns-server ~]$ sudo firewall-cmd --reload
 success
