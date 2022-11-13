@@ -29,7 +29,7 @@ Cette commande va permettre de stoquer toutes les requetes DNS dans une file d'a
 - Puis lancer le programme (normalement ça devrait marcher)
 
 ```
-sudo python3 test.py
+sudo python3 poison.py
 ```
 
 Petit truc :
