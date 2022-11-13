@@ -9,10 +9,7 @@ Pour récupérer le script python :
 - faire un `git clone https://github.com/HugoANDRIAMAMPIANINA/MITM_Hugo` **sur la machine `hacker`**
 
 - installer les bibliothèques `scapy` et `netfilterqueue`
-
-```
-sudo pip3 install scapy netfilterqueue
-```
+  
 
 **ATTENTION !!!**
 
